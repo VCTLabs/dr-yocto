@@ -12,8 +12,6 @@ directory of the repository.
 
 The script `run-shell.sh` runs the Docker image built before interactively. The syntax is
 
-    run.sh <tag>
+    run-shell.sh <tag>
 
-For example, `run.sh 18.04` runs the Docker image `dr-yocto:18.04` and starts a shell.
-
-
+For example, `run-shell.sh 18.04` runs the Docker image `dr-yocto:18.04` and starts a shell.
