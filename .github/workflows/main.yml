@@ -30,6 +30,16 @@ jobs:
       - name: Build bionic
         run: ./build.sh 18.04 ./18.04
 
-      - name: Test
+      - name: Test bionic
         run: |
           docker run --rm dr-yocto:18.04
+
+      - name: Build focal
+        run: ./build.sh 20.04 ./20.04
+
+      - name: Test focal
+        run: |
+          docker run --rm dr-yocto:20.04
+
+      - name: Check workdir
+        run: ls -lt /
