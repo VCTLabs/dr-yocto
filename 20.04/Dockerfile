@@ -1,4 +1,5 @@
-# Copyright 2019-2021, Burkhard Stubert (DBA Embedded Use)
+# Copyright 2019-2020, Burkhard Stubert (DBA Embedded Use)
+# Copyright 2023, Stephen Arnold
 
 # The parent directory contains two helper scripts to build and run the Docker image.
 #
@@ -7,31 +8,32 @@
 # builds a Docker image with the name "dr-yocto" and the tag "<tag>" ("dr-yocto:<tag>", for
 # short) from the Dockerfile found in <dir-path>. If you are in the parent directory of this
 # file, you can call
-#     ./build.sh 16.04 ./16.04
-# to build the image "dr-yocto:16.04".
+#     ./build.sh 20.04 ./20.04
+# to build the image "dr-yocto:20.04".
 #
 # The script
 #     run-shell.sh <tag>
 # runs the Docker image "dr-yocto:<tag>" just built. For example,
-#     run-shell.sh 16.04
-# runs the Docker image "dr-yocto:16.04".
+#     run-shell.sh 20.04
+# runs the Docker image "dr-yocto:20.04".
 #
 # Note that you can use any string for <tag>. It need not be the name of a Ubuntu version.
 
-# Use Ubuntu 16.04 LTS as the basis for the Docker image.
-FROM ubuntu:16.04
+# Use Ubuntu 20.04 LTS (Bionic Beaver) as the basis for the Docker image.
+FROM ubuntu:20.04
 
 # Install all Linux packages required for Yocto builds as given in section "Build Host Packages"
 # on https://www.yoctoproject.org/docs/3.0.2/brief-yoctoprojectqs/brief-yoctoprojectqs.html.
+# I added the package git-lfs, which I found missing during a Yocto build.
 # Without DEBIAN_FRONTEND=noninteractive, the image build hangs indefinitely
 # at "Configuring tzdata". Even if you answer the question about the time zone, it will
 # not proceed.
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
-    gawk wget git-core diffstat unzip texinfo gcc-multilib \
+    gawk wget git diffstat unzip texinfo gcc-multilib \
     build-essential chrpath socat cpio python python3 python3-pip python3-pexpect \
     xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev \
-    pylint3 xterm
+    pylint3 xterm python3-subunit mesa-common-dev zstd liblz4-tool git-lfs
 
 # These packages are not needed for the Yocto build but in this file below.
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
