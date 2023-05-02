@@ -7,4 +7,4 @@
 docker run -it --rm \
   -e SSH_AUTH_SOCK=/tmp/ssh_auth.sock \
   -v $SSH_AUTH_SOCK:/tmp/ssh_auth.sock \
-  -v $PWD:/workdir dr-yocto:$1
+  -v $PWD:/public/workdir dr-yocto:$1
