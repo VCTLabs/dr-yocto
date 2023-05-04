@@ -8,19 +8,19 @@
 # builds a Docker image with the name "dr-yocto" and the tag "<tag>" ("dr-yocto:<tag>", for
 # short) from the Dockerfile found in <dir-path>. If you are in the parent directory of this
 # file, you can call
-#     ./build.sh 20.04 ./20.04
-# to build the image "dr-yocto:20.04".
+#     ./build.sh 22.04 ./22.04
+# to build the image "dr-yocto:22.04".
 #
 # The script
 #     run-shell.sh <tag>
 # runs the Docker image "dr-yocto:<tag>" just built. For example,
-#     run-shell.sh 20.04
-# runs the Docker image "dr-yocto:20.04".
+#     run-shell.sh 22.04
+# runs the Docker image "dr-yocto:22.04".
 #
 # Note that you can use any string for <tag>. It need not be the name of a Ubuntu version.
 
-# Use Ubuntu 20.04 LTS (Focal Fossa) as the basis for the Docker image.
-FROM ubuntu:20.04
+# Use Ubuntu 22.04 LTS (Jammy Jellyfish) as the basis for the Docker image.
+FROM ubuntu:22.04
 
 # Install all Linux packages required for Yocto builds as given in section "Build Host Packages"
 # on https://www.yoctoproject.org/docs/3.0.2/brief-yoctoprojectqs/brief-yoctoprojectqs.html.
@@ -31,9 +31,9 @@ FROM ubuntu:20.04
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
     gawk wget git diffstat unzip texinfo gcc-multilib \
-    build-essential chrpath socat cpio python python3 python3-pip python3-pexpect \
+    build-essential chrpath socat cpio python2 python3 python3-pip python3-pexpect \
     xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev \
-    pylint3 xterm python3-subunit mesa-common-dev zstd liblz4-tool git-lfs \
+    pylint xterm python3-subunit mesa-common-dev zstd liblz4-tool git-lfs \
     bash-completion nano
 
 # These packages are not needed for the Yocto build but in this file below.
